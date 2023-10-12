@@ -11,16 +11,18 @@ datasource db {
 }
 
 model User {
-  id            String   @id @default(uuid())
-  email         String   @unique
+  id            String    @id @default(uuid())
+  email         String    @unique
   name          String
   role          Role
   password      String
   contactNumber String
   address       String
   profileImg    String
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  bookings      Booking[]
+  reviews       Review[]
 
   @@map("users")
 }
@@ -35,6 +37,7 @@ model Categories {
   id        String     @id @default(uuid())
   title     String
   imageLink String
+  status    Boolean    @default(false)
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
   services  Services[]
@@ -54,6 +57,43 @@ model Services {
   imageLink   String
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
+  bookings    Booking[]
+  Review      Review[]
 
   @@map("services")
+}
+
+model Booking {
+  id        String        @id @default(uuid())
+  date      String
+  startTime String
+  endTime   String
+  userId    String
+  user      User          @relation(fields: [userId], references: [id])
+  serviceId String
+  service   Services      @relation(fields: [serviceId], references: [id])
+  status    BookingStatus
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  @@map("bookings")
+}
+
+model Review {
+  id        String @id @default(uuid())
+  userId    String
+  serviceId String
+  rating    Int
+  content   String
+  // Add other review-related fields as needed
+
+  // Define relationships to the User and Service models
+  user    User?     @relation(fields: [userId], references: [id])
+  service Services? @relation(fields: [serviceId], references: [id])
+}
+
+enum BookingStatus {
+  pending
+  accepted
+  rejected
 }

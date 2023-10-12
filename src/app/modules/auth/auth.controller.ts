@@ -3,11 +3,11 @@ import httpStatus from 'http-status';
 
 import catchAsync from '../../../shared/catchAsync';
 import sendResponse from '../../../shared/sendResponse';
-import { UserService } from './user.service';
+import { UserService } from './auth.service';
 
-const registerUSer: RequestHandler = catchAsync(
+const userRegister: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
-    const result = await UserService.registerUSer(req.body);
+    const result = await UserService.userRegister(req.body);
     // console.log(req.body);
     sendResponse(res, {
       statusCode: httpStatus.OK,
@@ -18,10 +18,10 @@ const registerUSer: RequestHandler = catchAsync(
   }
 );
 
-const addNewAdmin: RequestHandler = catchAsync(
+const createAdmin: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
-    const result = await UserService.addNewAdmin(req.body);
-    console.log(req.body);
+    const result = await UserService.createAdmin(req.body);
+    // console.log(req.body);
     sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,
@@ -62,8 +62,8 @@ const loginUser: RequestHandler = catchAsync(
 );
 
 export const UserController = {
-  registerUSer,
+  userRegister,
   loginUser,
-  addNewAdmin,
+  createAdmin,
   addNewUser,
 };

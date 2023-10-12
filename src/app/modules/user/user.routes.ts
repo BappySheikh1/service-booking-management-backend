@@ -19,7 +19,7 @@ router.get(
 );
 
 router.patch(
-  '/superadmin/users/:id',
+  '/super_admin/users/:id',
   auth(ENUM_USER_ROLE.SUPER_ADMIN),
   UserController.updateAdminRoles
 );

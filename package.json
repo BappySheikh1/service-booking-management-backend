@@ -15,7 +15,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "prisma generate"
   },
-  "author": "Md Faysal Hossain",
+  "author": "Md Bappy Sheikh",
   "license": "ISC",
   "lint-staged": {
     "src/**/*.ts": "yarn lint-prettier"

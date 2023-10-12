@@ -9,7 +9,7 @@ import ApiError from '../../../errors/ApiError';
 import { jwtHelpers } from '../../../helpers/jwtHelpers';
 import prisma from '../../../shared/prisma';
 
-const registerUSer = async (user: User): Promise<User> => {
+const userRegister = async (user: User): Promise<User> => {
   if (!user.password) {
     user.password = config.default_pass as string;
   }
@@ -26,7 +26,7 @@ const registerUSer = async (user: User): Promise<User> => {
   return result;
 };
 
-const addNewAdmin = async (user: User): Promise<User> => {
+const createAdmin = async (user: User): Promise<User> => {
   if (!user.password) {
     user.password = config.default_pass as string;
   }
@@ -96,8 +96,8 @@ const loginUser = async (payload: { email: string; password: string }) => {
 };
 
 export const UserService = {
-  registerUSer,
-  addNewAdmin,
+  userRegister,
+  createAdmin,
   loginUser,
   addNewUser,
 };
