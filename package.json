@@ -1,5 +1,5 @@
 {
-  "name": "service-booking-management-core-service",
+  "name": "service-booking-management-backend",
   "version": "1.0.0",
   "description": "",
   "main": "src/server.ts",

@@ -12,7 +12,7 @@ const moduleRoutes = [
     routes: AuthRouter,
   },
   {
-    path: '/',
+    path: '/users',
     routes: UserRouter,
   },
 ];

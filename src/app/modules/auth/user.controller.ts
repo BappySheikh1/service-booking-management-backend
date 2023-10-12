@@ -8,7 +8,7 @@ import { UserService } from './user.service';
 const registerUSer: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
     const result = await UserService.registerUSer(req.body);
-    console.log(req.body);
+    // console.log(req.body);
     sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,
@@ -17,6 +17,7 @@ const registerUSer: RequestHandler = catchAsync(
     });
   }
 );
+
 const addNewAdmin: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
     const result = await UserService.addNewAdmin(req.body);
@@ -29,6 +30,7 @@ const addNewAdmin: RequestHandler = catchAsync(
     });
   }
 );
+
 const addNewUser: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
     const result = await UserService.addNewUser(req.body);
@@ -41,6 +43,7 @@ const addNewUser: RequestHandler = catchAsync(
     });
   }
 );
+
 const loginUser: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
     const { ...loginData } = req.body;

@@ -25,6 +25,7 @@ const registerUSer = async (user: User): Promise<User> => {
   const result = await prisma.user.create({ data: user });
   return result;
 };
+
 const addNewAdmin = async (user: User): Promise<User> => {
   if (!user.password) {
     user.password = config.default_pass as string;
@@ -41,6 +42,7 @@ const addNewAdmin = async (user: User): Promise<User> => {
   const result = await prisma.user.create({ data: user });
   return result;
 };
+
 const addNewUser = async (user: User): Promise<User> => {
   if (!user.password) {
     user.password = config.default_pass as string;
@@ -57,6 +59,7 @@ const addNewUser = async (user: User): Promise<User> => {
   const result = await prisma.user.create({ data: user });
   return result;
 };
+
 const loginUser = async (payload: { email: string; password: string }) => {
   const { email, password } = payload;
 
