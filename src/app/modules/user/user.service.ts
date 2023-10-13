@@ -61,12 +61,6 @@ const deleteFromDB = async (
   return null;
 };
 
-const getProfile = async (userId: string): Promise<User | null> => {
-  // const result = await prisma.user.findUnique({ where: { email } });
-  const result = await prisma.user.findUnique({ where: { id: userId } });
-  return result;
-};
-
 const updateAdminRoles = async (
   id: string,
   payload: User
@@ -80,6 +74,5 @@ export const UserService = {
   getByIdFromDB,
   updateIntoDB,
   deleteFromDB,
-  getProfile,
   updateAdminRoles,
 };

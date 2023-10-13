@@ -62,22 +62,6 @@ const deleteFromDB: RequestHandler = catchAsync(
   }
 );
 
-const getProfile: RequestHandler = catchAsync(
-  async (req: Request, res: Response) => {
-    // Retrieve the user's _id & role from the access token
-    const { userId } = req.user as { userId: string };
-
-    const result = await UserService.getProfile(userId);
-
-    sendResponse(res, {
-      statusCode: httpStatus.OK,
-      success: true,
-      message: 'Profile fetched successfully',
-      data: result,
-    });
-  }
-);
-
 const updateAdminRoles: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
     const id = req.params.id;
@@ -97,6 +81,5 @@ export const UserController = {
   getByIdFromDB,
   updateIntoDB,
   deleteFromDB,
-  getProfile,
   updateAdminRoles,
 };

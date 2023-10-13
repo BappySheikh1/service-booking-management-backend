@@ -79,6 +79,13 @@ model Booking {
   @@map("bookings")
 }
 
+enum BookingStatus {
+  pending
+  accepted
+  rejected
+}
+
+
 model Review {
   id        String @id @default(uuid())
   userId    String
@@ -90,10 +97,7 @@ model Review {
   // Define relationships to the User and Service models
   user    User?     @relation(fields: [userId], references: [id])
   service Services? @relation(fields: [serviceId], references: [id])
+  
+  @@map("reviews")
 }
 
-enum BookingStatus {
-  pending
-  accepted
-  rejected
-}
