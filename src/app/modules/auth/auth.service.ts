@@ -9,7 +9,7 @@ import ApiError from '../../../errors/ApiError';
 import { jwtHelpers } from '../../../helpers/jwtHelpers';
 import prisma from '../../../shared/prisma';
 
-const userRegister = async (user: User): Promise<User> => {
+const createRegister = async (user: User): Promise<User> => {
   if (!user.password) {
     user.password = config.default_pass as string;
   }
@@ -19,7 +19,7 @@ const userRegister = async (user: User): Promise<User> => {
 
   user.password = await bcrypt.hash(
     user.password,
-    Number(config.bycrypt_salt_rounds)
+    Number(config.bcrypt_salt_rounds)
   );
 
   const result = await prisma.user.create({ data: user });
@@ -36,14 +36,14 @@ const createAdmin = async (user: User): Promise<User> => {
 
   user.password = await bcrypt.hash(
     user.password,
-    Number(config.bycrypt_salt_rounds)
+    Number(config.bcrypt_salt_rounds)
   );
 
   const result = await prisma.user.create({ data: user });
   return result;
 };
 
-const addNewUser = async (user: User): Promise<User> => {
+const createNewUser = async (user: User): Promise<User> => {
   if (!user.password) {
     user.password = config.default_pass as string;
   }
@@ -53,7 +53,7 @@ const addNewUser = async (user: User): Promise<User> => {
 
   user.password = await bcrypt.hash(
     user.password,
-    Number(config.bycrypt_salt_rounds)
+    Number(config.bcrypt_salt_rounds)
   );
 
   const result = await prisma.user.create({ data: user });
@@ -95,9 +95,9 @@ const loginUser = async (payload: { email: string; password: string }) => {
   return accessToken;
 };
 
-export const UserService = {
-  userRegister,
+export const AuthService = {
+  createRegister,
   createAdmin,
   loginUser,
-  addNewUser,
+  createNewUser,
 };

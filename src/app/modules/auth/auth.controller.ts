@@ -3,12 +3,12 @@ import httpStatus from 'http-status';
 
 import catchAsync from '../../../shared/catchAsync';
 import sendResponse from '../../../shared/sendResponse';
-import { UserService } from './auth.service';
+import { AuthService } from './auth.service';
 
-const userRegister: RequestHandler = catchAsync(
+const createRegister: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
-    const result = await UserService.userRegister(req.body);
-    // console.log(req.body);
+    const result = await AuthService.createRegister(req.body);
+    console.log(req.body);
     sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,
@@ -20,8 +20,8 @@ const userRegister: RequestHandler = catchAsync(
 
 const createAdmin: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
-    const result = await UserService.createAdmin(req.body);
-    // console.log(req.body);
+    const result = await AuthService.createAdmin(req.body);
+    console.log(req.body);
     sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,
@@ -31,9 +31,9 @@ const createAdmin: RequestHandler = catchAsync(
   }
 );
 
-const addNewUser: RequestHandler = catchAsync(
+const createNewUser: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
-    const result = await UserService.addNewUser(req.body);
+    const result = await AuthService.createNewUser(req.body);
     console.log(req.body);
     sendResponse(res, {
       statusCode: httpStatus.OK,
@@ -48,7 +48,7 @@ const loginUser: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
     const { ...loginData } = req.body;
 
-    const result = await UserService.loginUser(loginData);
+    const result = await AuthService.loginUser(loginData);
 
     // set refresh token into cookie
 
@@ -61,9 +61,9 @@ const loginUser: RequestHandler = catchAsync(
   }
 );
 
-export const UserController = {
-  userRegister,
+export const AuthController = {
+  createRegister,
   loginUser,
   createAdmin,
-  addNewUser,
+  createNewUser,
 };

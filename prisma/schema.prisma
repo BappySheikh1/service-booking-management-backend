@@ -21,8 +21,8 @@ model User {
   profileImg    String
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
-  bookings      Booking[]
-  reviews       Review[]
+  Booking       Booking[]
+  Reviews       Reviews[]
 
   @@map("users")
 }
@@ -49,18 +49,54 @@ model Services {
   id          String     @id @default(uuid())
   title       String
   description String
-  reviews     String[]
   price       String
   tax         String
   categoryId  String
+  location    Location
   category    Categories @relation(fields: [categoryId], references: [id])
   imageLink   String
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
-  bookings    Booking[]
-  Review      Review[]
+  booking     Booking[]
+  reviews     Reviews[]
 
   @@map("services")
+}
+
+enum Location {
+  Narail
+  Khulna
+  Kalia
+  Banani
+  Dhanmondi
+  Mohammadpur
+  Motijheel
+  Khilgaon
+  Shyamoli
+  Farmgate
+  Mohakhali
+  Tejgaon
+  Rampura
+  Badda
+  Malibagh
+  Jatrabari
+  Demra
+  Kadamtali
+  Keraniganj
+}
+
+model Reviews {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  serviceId String
+  service   Services @relation(fields: [serviceId], references: [id])
+  review    String
+  rating    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("reviews")
 }
 
 model Booking {
@@ -85,19 +121,33 @@ enum BookingStatus {
   rejected
 }
 
-
-model Review {
-  id        String @id @default(uuid())
-  userId    String
-  serviceId String
-  rating    Int
+model Blog {
+  id        String   @id @default(uuid())
+  title     String
   content   String
-  // Add other review-related fields as needed
+  imageLink String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  // Define relationships to the User and Service models
-  user    User?     @relation(fields: [userId], references: [id])
-  service Services? @relation(fields: [serviceId], references: [id])
-  
-  @@map("reviews")
+  @@map("blog")
 }
 
+model Faqs {
+  id        String   @id @default(uuid())
+  question  String
+  answer    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("faqs")
+}
+
+model Feedback {
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  message   String
+  createdAt DateTime @default(now())
+
+  @@map("feedback")
+}
