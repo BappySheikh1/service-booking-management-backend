@@ -7,11 +7,11 @@ import sendResponse from '../../../shared/sendResponse';
 import { userFilterableFields } from './user.contants';
 import { UserService } from './user.service';
 
-const getAllFromDB: RequestHandler = catchAsync(
+const getAllUsersFromDB: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
     const filters = pick(req.query, userFilterableFields);
     const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortOrder']);
-    const result = await UserService.getAllFromDB(filters, options);
+    const result = await UserService.getAllUsersFromDB(filters, options);
 
     sendResponse(res, {
       statusCode: httpStatus.OK,
@@ -23,10 +23,10 @@ const getAllFromDB: RequestHandler = catchAsync(
   }
 );
 
-const getByIdFromDB: RequestHandler = catchAsync(
+const getSingleUserByIdFromDB: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
     const id = req.params.id;
-    const result = await UserService.getByIdFromDB(id);
+    const result = await UserService.getSingleUserByIdFromDB(id);
 
     sendResponse(res, {
       statusCode: httpStatus.OK,
@@ -37,10 +37,10 @@ const getByIdFromDB: RequestHandler = catchAsync(
   }
 );
 
-const updateIntoDB: RequestHandler = catchAsync(
+const updateSingleUserFromDB: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
     const { userId } = req.user as { userId: string };
-    const result = await UserService.updateIntoDB(userId, req.body);
+    const result = await UserService.updateSingleUserFromDB(userId, req.body);
 
     sendResponse(res, {
       statusCode: httpStatus.OK,
@@ -51,12 +51,12 @@ const updateIntoDB: RequestHandler = catchAsync(
   }
 );
 
-const deleteFromDB: RequestHandler = catchAsync(
+const deleteSingleUserFromDB: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
     const { userId } = req.user as { userId: string };
 
     const id = req.params.id;
-    const result = await UserService.deleteFromDB(id, userId);
+    const result = await UserService.deleteSingleUserFromDB(id, userId);
 
     sendResponse(res, {
       statusCode: httpStatus.OK,
@@ -67,21 +67,6 @@ const deleteFromDB: RequestHandler = catchAsync(
   }
 );
 
-const getProfile: RequestHandler = catchAsync(
-  async (req: Request, res: Response) => {
-    // Retrieve the user's _id & role from the access token
-    const { userId } = req.user as { userId: string };
-
-    const result = await UserService.getProfile(userId);
-
-    sendResponse(res, {
-      statusCode: httpStatus.OK,
-      success: true,
-      message: 'Profile fetched successfully',
-      data: result,
-    });
-  }
-);
 
 const updateAdminRoles: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
@@ -98,10 +83,9 @@ const updateAdminRoles: RequestHandler = catchAsync(
 );
 
 export const UserController = {
-  getAllFromDB,
-  getByIdFromDB,
-  updateIntoDB,
-  deleteFromDB,
-  getProfile,
+  getAllUsersFromDB,
+  getSingleUserByIdFromDB,
+  updateSingleUserFromDB,
+  deleteSingleUserFromDB,
   updateAdminRoles,
 };

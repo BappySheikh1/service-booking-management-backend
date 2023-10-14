@@ -7,38 +7,33 @@ import { UserController } from './user.controller';
 const router = express.Router();
 
 router.get(
-  '/users/all',
+  '/users',
   auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
-  UserController.getAllFromDB
+  UserController.getAllUsersFromDB
 );
 
 router.get(
   '/user/:id',
   auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
-  UserController.getByIdFromDB
+  UserController.getSingleUserByIdFromDB
 );
 
 router.patch(
-  '/superadmin/users/:id',
+  '/super_admin/users/:id',
   auth(ENUM_USER_ROLE.SUPER_ADMIN),
   UserController.updateAdminRoles
+);
+
+router.patch(
+  '/user/:id',
+  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.USER, ENUM_USER_ROLE.SUPER_ADMIN),
+  UserController.updateSingleUserFromDB
 );
 
 router.delete(
   '/user/:id',
   auth(ENUM_USER_ROLE.ADMIN),
-  UserController.deleteFromDB
-);
-router.patch(
-  '/profile/',
-  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.USER, ENUM_USER_ROLE.SUPER_ADMIN),
-  UserController.updateIntoDB
-);
-
-router.get(
-  '/profile',
-  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.USER, ENUM_USER_ROLE.SUPER_ADMIN),
-  UserController.getProfile
+  UserController.deleteSingleUserFromDB
 );
 
 export const UserRouter = router;

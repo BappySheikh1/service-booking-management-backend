@@ -6,7 +6,7 @@ import prisma from '../../../shared/prisma';
 import { userSearchableFields } from './user.contants';
 import { IProfileUpdate, IUserFilterRequest } from './user.interface';
 
-const getAllFromDB = async (
+const getAllUsersFromDB = async (
   filters: IUserFilterRequest,
   options: IPaginationOptions
 ): Promise<IGenericResponse<User[]>> => {
@@ -24,6 +24,7 @@ const getAllFromDB = async (
       })),
     });
   }
+
   if (Object.keys(filterData).length > 0) {
     andConditions.push({
       AND: Object.keys(filterData).map(key => {
@@ -35,6 +36,7 @@ const getAllFromDB = async (
       }),
     });
   }
+
   const whereConditions: Prisma.UserWhereInput =
     andConditions.length > 0 ? { AND: andConditions } : {};
   const result = await prisma.user.findMany({
@@ -48,9 +50,11 @@ const getAllFromDB = async (
             createdAt: 'desc',
           },
   });
+
   const total = await prisma.user.count({
     where: whereConditions,
   });
+
   return {
     meta: {
       total,
@@ -58,16 +62,17 @@ const getAllFromDB = async (
       limit,
       totalPage: Math.ceil(total / limit),
     },
+
     data: result,
   };
 };
 
-const getByIdFromDB = async (id: string): Promise<User | null> => {
+const getSingleUserByIdFromDB = async (id: string): Promise<User | null> => {
   const result = await prisma.user.findUnique({ where: { id } });
   return result;
 };
 
-const updateIntoDB = async (
+const updateSingleUserFromDB = async (
   userId: string,
   payload: User
 ): Promise<User | null> => {
@@ -90,7 +95,7 @@ const updateIntoDB = async (
   return result;
 };
 
-const deleteFromDB = async (
+const deleteSingleUserFromDB = async (
   id: string,
   userId: string
 ): Promise<User | null> => {
@@ -116,11 +121,7 @@ const deleteFromDB = async (
   return null;
 };
 
-const getProfile = async (userId: string): Promise<User | null> => {
-  // const result = await prisma.user.findUnique({ where: { email } });
-  const result = await prisma.user.findUnique({ where: { id: userId } });
-  return result;
-};
+
 
 const updateAdminRoles = async (
   id: string,
@@ -131,10 +132,9 @@ const updateAdminRoles = async (
 };
 
 export const UserService = {
-  getAllFromDB,
-  getByIdFromDB,
-  updateIntoDB,
-  deleteFromDB,
-  getProfile,
+  getAllUsersFromDB,
+  getSingleUserByIdFromDB,
+  updateSingleUserFromDB,
+  deleteSingleUserFromDB,
   updateAdminRoles,
 };
