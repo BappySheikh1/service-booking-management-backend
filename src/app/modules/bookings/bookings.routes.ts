@@ -9,30 +9,30 @@ const router = express.Router();
 router.post(
   '/',
   auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.USER),
-  BookingsController.insartIntoDB
+  BookingsController.insertBookingIntoDB
 );
 
 router.get(
   '/',
   auth(ENUM_USER_ROLE.USER, ENUM_USER_ROLE.ADMIN),
-  BookingsController.getAllFromDB
+  BookingsController.getAllBookingFromDB
 );
 router.get(
   '/:id',
   auth(ENUM_USER_ROLE.USER, ENUM_USER_ROLE.ADMIN),
-  BookingsController.getByIdFromDB
+  BookingsController.getSingleBookingByIdFromDB
 );
 
 router.patch(
   '/:id',
   auth(ENUM_USER_ROLE.ADMIN),
-  BookingsController.updateOneInDB
+  BookingsController.updateBookingOneInDB
 );
 
 router.delete(
   '/:id',
   auth(ENUM_USER_ROLE.USER, ENUM_USER_ROLE.ADMIN),
-  BookingsController.deleteByIdFromDB
+  BookingsController.deleteBookingByIdFromDB
 );
 
 export const BookingsRouter = router;

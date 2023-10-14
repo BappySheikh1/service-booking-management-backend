@@ -10,19 +10,19 @@ router.post(
   auth(ENUM_USER_ROLE.ADMIN),
   ServiceController.insertIntoDB
 );
-router.get('/', ServiceController.getAllFromDB);
+router.get('/', ServiceController.getAllServiceFromDB);
 router.get('/:categoryId/category', ServiceController.getServiceByCategoryId);
-router.get('/:id', ServiceController.getByIdFromDB);
+router.get('/:id', ServiceController.getSingleServiceByIdFromDB);
 
 router.patch(
   '/:id',
   auth(ENUM_USER_ROLE.ADMIN),
-  ServiceController.updateIntoDB
+  ServiceController.updateServiceFromDB
 );
 router.delete(
   '/:id',
   auth(ENUM_USER_ROLE.ADMIN),
-  ServiceController.deleteFromDB
+  ServiceController.deleteServiceFromDB
 );
 
 export const ServicesRouter = router;

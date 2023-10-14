@@ -4,11 +4,11 @@ import catchAsync from '../../../shared/catchAsync';
 import sendResponse from '../../../shared/sendResponse';
 import { BookingsService } from './bookings.service';
 
-const insartIntoDB: RequestHandler = catchAsync(
+const insertBookingIntoDB: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
     const { userId } = req.user as { userId: string };
 
-    const result = await BookingsService.insartIntoDB(req.body, userId);
+    const result = await BookingsService.insertBookingIntoDB(req.body, userId);
 
     sendResponse(res, {
       statusCode: httpStatus.OK,
@@ -18,70 +18,72 @@ const insartIntoDB: RequestHandler = catchAsync(
     });
   }
 );
-const getAllFromDB: RequestHandler = catchAsync(
+
+const getAllBookingFromDB: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
     const { userId } = req.user as { userId: string };
-    const result = await BookingsService.getAllFromDB(userId);
+    const result = await BookingsService.getAllBookingFromDB(userId);
     sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'Booking faced successfully',
-      data: result,
-    });
-  }
-);
-const getByIdFromDB: RequestHandler = catchAsync(
-  async (req: Request, res: Response) => {
-    const { userId } = req.user as { userId: string };
-    const { id } = req.params;
-
-    const result = await BookingsService.getByIdFromDB(userId, id);
-
-    sendResponse(res, {
-      statusCode: httpStatus.OK,
-      success: true,
-      message: 'Booking faced successfully',
+      message: 'All Booking retrieve successfully',
       data: result,
     });
   }
 );
 
-const updateOneInDB: RequestHandler = catchAsync(
+const getSingleBookingByIdFromDB: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
     const { userId } = req.user as { userId: string };
     const { id } = req.params;
 
-    const result = await BookingsService.updateOneInDB(userId, id, req.body);
+    const result = await BookingsService.getSingleBookingByIdFromDB(userId, id);
 
     sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'Booking Upate successfully',
+      message: 'Single Booking retrieve successfully',
       data: result,
     });
   }
 );
 
-const deleteByIdFromDB: RequestHandler = catchAsync(
+const updateBookingOneInDB: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
     const { userId } = req.user as { userId: string };
     const { id } = req.params;
 
-    const result = await BookingsService.deleteByIdFromDB(userId, id);
+    const result = await BookingsService.updateBookingOneInDB(userId, id, req.body);
 
     sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'Booking faced successfully',
+      message: 'Booking Updated successfully',
+      data: result,
+    });
+  }
+);
+
+const deleteBookingByIdFromDB: RequestHandler = catchAsync(
+  async (req: Request, res: Response) => {
+    const { userId } = req.user as { userId: string };
+    const { id } = req.params;
+
+    const result = await BookingsService.deleteBookingByIdFromDB(userId, id);
+
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Booking deleted successfully',
       data: result,
     });
   }
 );
 
 export const BookingsController = {
-  getAllFromDB,
-  insartIntoDB,
-  getByIdFromDB,
-  deleteByIdFromDB,
-  updateOneInDB,
+  insertBookingIntoDB,
+  getAllBookingFromDB,
+  getSingleBookingByIdFromDB,
+  updateBookingOneInDB,
+  deleteBookingByIdFromDB,
 };

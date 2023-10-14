@@ -4,7 +4,10 @@ import ApiError from '../../../errors/ApiError';
 import prisma from '../../../shared/prisma';
 import { hasTimeConflict } from '../../../shared/utils';
 
-const insartIntoDB = async (data: Booking, id: string): Promise<Booking> => {
+const insertBookingIntoDB = async (
+  data: Booking,
+  id: string
+): Promise<Booking> => {
   if (data) {
     data.userId = id;
     data.status = BookingStatus.pending;
@@ -42,7 +45,7 @@ const insartIntoDB = async (data: Booking, id: string): Promise<Booking> => {
   return result;
 };
 
-const getAllFromDB = async (id: string): Promise<Booking[]> => {
+const getAllBookingFromDB = async (id: string): Promise<Booking[]> => {
   const result = await prisma.booking.findMany({
     where: {
       userId: id,
@@ -54,7 +57,8 @@ const getAllFromDB = async (id: string): Promise<Booking[]> => {
   });
   return result;
 };
-const getByIdFromDB = async (
+
+const getSingleBookingByIdFromDB = async (
   id: string,
   bookingId: string
 ): Promise<Booking[]> => {
@@ -71,7 +75,7 @@ const getByIdFromDB = async (
   return result;
 };
 
-const updateOneInDB = async (
+const updateBookingOneInDB = async (
   id: string,
   bookingId: string,
   payload: Partial<Booking>
@@ -91,7 +95,7 @@ const updateOneInDB = async (
   return result;
 };
 
-const deleteByIdFromDB = async (
+const deleteBookingByIdFromDB = async (
   id: string,
   bookingId: string
 ): Promise<Booking> => {
@@ -119,9 +123,9 @@ const deleteByIdFromDB = async (
 };
 
 export const BookingsService = {
-  insartIntoDB,
-  getAllFromDB,
-  getByIdFromDB,
-  deleteByIdFromDB,
-  updateOneInDB,
+  insertBookingIntoDB,
+  getAllBookingFromDB,
+  getSingleBookingByIdFromDB,
+  deleteBookingByIdFromDB,
+  updateBookingOneInDB,
 };

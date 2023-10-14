@@ -16,7 +16,7 @@ const insertIntoDB = async (data: Services): Promise<Services> => {
   return result;
 };
 
-const getAllFromDB = async (
+const getAllServiceFromDB = async (
   filters: IServiceFilters,
   paginationOptions: IPaginationOptions
 ): Promise<IGenericResponse<Services[]>> => {
@@ -141,28 +141,30 @@ const getServiceByCategoryId = async (
   };
 };
 
-const getByIdFromDB = async (id: string): Promise<Services | null> => {
+const getSingleServiceByIdFromDB = async (
+  id: string
+): Promise<Services | null> => {
   const result = await prisma.services.findUnique({ where: { id } });
   return result;
 };
-const updateIntoDB = async (
+
+const updateServiceFromDB = async (
   id: string,
   payload: Services
 ): Promise<Services | null> => {
   const result = await prisma.services.update({ where: { id }, data: payload });
   return result;
 };
-const deleteFromDB = async (id: string): Promise<Services | null> => {
+const deleteServiceFromDB = async (id: string): Promise<Services | null> => {
   const result = await prisma.services.delete({ where: { id } });
   return result;
 };
 
 export const ServicesService = {
   insertIntoDB,
-
-  getAllFromDB,
+  getAllServiceFromDB,
   getServiceByCategoryId,
-  getByIdFromDB,
-  updateIntoDB,
-  deleteFromDB,
+  getSingleServiceByIdFromDB,
+  updateServiceFromDB,
+  deleteServiceFromDB,
 };
