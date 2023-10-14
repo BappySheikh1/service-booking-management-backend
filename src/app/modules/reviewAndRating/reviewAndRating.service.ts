@@ -1,7 +1,7 @@
 import { Reviews } from '@prisma/client';
 import prisma from '../../../shared/prisma';
 
-const insertIntoDB = async (
+const insertIntoFromDB = async (
   data: Reviews,
   userId: string
 ): Promise<Reviews> => {
@@ -10,8 +10,7 @@ const insertIntoDB = async (
   const existForBooking = await prisma.booking.findMany({
     where: {
       serviceId: data.serviceId,
-      userId: userId, // Optionally, check if the user has actually booked this service
-      // status: BookingStatus.accepted,
+      userId: userId, 
     },
   });
 
@@ -34,7 +33,7 @@ const insertIntoDB = async (
   return result;
 };
 
-const getAllFromDB = async (): Promise<Reviews[]> => {
+const getAllReviewAndRatingFromDB = async (): Promise<Reviews[]> => {
   const result = await prisma.reviews.findMany({
     include: {
       user: true,
@@ -44,29 +43,13 @@ const getAllFromDB = async (): Promise<Reviews[]> => {
   return result;
 };
 
-const getByIdFromDB = async (id: string): Promise<Reviews[]> => {
+const getSingleReviewAndRatingByIdFromDB = async (id: string): Promise<Reviews[]> => {
   const result = await prisma.reviews.findMany({ where: { serviceId: id } });
   return result;
 };
 
-// const updateIntoDB = async (id: string, payload: ReviewAndRating): Promise<ReviewAndRating | null> => {
-//      const result = await prisma.reviewAndRating.update({ where: { id }, data: payload });
-//      return result;
-
-// }
-
-// const deleteFromDB = async (id: string): Promise<ReviewAndRating | null> => {
-//      const result = await prisma.reviewAndRating.delete({ where: { id } });
-//      return result;
-// }
-
-// const getProfile = async (id: string): Promise<ReviewAndRating | null> => {
-//      const result = await prisma.reviewAndRating.findUnique({ where: { id } });
-//      return result;
-// }
-
 export const ReviewAndRatingService = {
-  insertIntoDB,
-  getAllFromDB,
-  getByIdFromDB,
+  insertIntoFromDB,
+  getAllReviewAndRatingFromDB,
+  getSingleReviewAndRatingByIdFromDB,
 };

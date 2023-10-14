@@ -8,14 +8,17 @@ const router = express.Router();
 router.post(
   '/create',
   auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.USER),
-  ReviewAndRatingController.insertIntoDB
+  ReviewAndRatingController.insertIntoFromDB
 );
 
 router.get(
   '/',
   auth(ENUM_USER_ROLE.ADMIN),
-  ReviewAndRatingController.getAllFromDB
+  ReviewAndRatingController.getAllReviewAndRatingFromDB
 );
-router.get('/:id', ReviewAndRatingController.getByIdFromDB);
+router.get(
+  '/:id',
+  ReviewAndRatingController.getSingleReviewAndRatingByIdFromDB
+);
 
 export const ReviewAndRatingRoutes = router;

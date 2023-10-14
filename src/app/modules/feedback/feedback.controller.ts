@@ -4,9 +4,9 @@ import catchAsync from '../../../shared/catchAsync';
 import sendResponse from '../../../shared/sendResponse';
 import { FeedbackService } from './feedback.service';
 
-const insartIntoDB: RequestHandler = catchAsync(
+const insertIntoDB: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
-    const result = await FeedbackService.insartIntoDB(req.body);
+    const result = await FeedbackService.insertIntoDB(req.body);
 
     sendResponse(res, {
       statusCode: httpStatus.OK,
@@ -16,53 +16,55 @@ const insartIntoDB: RequestHandler = catchAsync(
     });
   }
 );
-const getAllFromDB: RequestHandler = catchAsync(
+
+const getAllFeedBackFromDB: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
-    const result = await FeedbackService.getAllFromDB();
+    const result = await FeedbackService.getAllFeedBackFromDB();
 
     sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'Feedback faced successfully',
-      data: result,
-    });
-  }
-);
-const getByIdFromDB: RequestHandler = catchAsync(
-  async (req: Request, res: Response) => {
-    const { id } = req.params;
-
-    const result = await FeedbackService.getByIdFromDB(id);
-
-    sendResponse(res, {
-      statusCode: httpStatus.OK,
-      success: true,
-      message: 'Feedback faced successfully',
+      message: 'Feedbacks retrieve successfully',
       data: result,
     });
   }
 );
 
-const updateOneInDB: RequestHandler = catchAsync(
+const getSingleFeedBackFromDB: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
     const { id } = req.params;
 
-    const result = await FeedbackService.updateOneInDB(id, req.body);
+    const result = await FeedbackService.getSingleFeedBackFromDB(id);
 
     sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'Feedback Upate successfully',
+      message: 'Feedback retrieve successfully',
       data: result,
     });
   }
 );
 
-const deleteByIdFromDB: RequestHandler = catchAsync(
+const updateFeedBackOneInDB: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
     const { id } = req.params;
 
-    const result = await FeedbackService.deleteByIdFromDB(id);
+    const result = await FeedbackService.updateFeedBackOneInDB(id, req.body);
+
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Feedback Updated successfully',
+      data: result,
+    });
+  }
+);
+
+const deleteFeedBackByIdFromDB: RequestHandler = catchAsync(
+  async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    const result = await FeedbackService.deleteFeedBackByIdFromDB(id);
 
     sendResponse(res, {
       statusCode: httpStatus.OK,
@@ -74,9 +76,9 @@ const deleteByIdFromDB: RequestHandler = catchAsync(
 );
 
 export const FeedbackController = {
-  insartIntoDB,
-  getAllFromDB,
-  getByIdFromDB,
-  deleteByIdFromDB,
-  updateOneInDB,
+  insertIntoDB,
+  getAllFeedBackFromDB,
+  getSingleFeedBackFromDB,
+  deleteFeedBackByIdFromDB,
+  updateFeedBackOneInDB,
 };

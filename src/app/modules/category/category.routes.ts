@@ -1,26 +1,26 @@
 import express from 'express';
-import { ENUM_USER_ROLE } from '../../../enums/user';
 import auth from '../../middlewares/auth';
+import { ENUM_USER_ROLE } from '../../../enums/user';
 import { CategoryController } from './category.controller';
 
 const router = express.Router();
 
 router.post(
-  '/create',
+  '/create-category',
   auth(ENUM_USER_ROLE.ADMIN),
   CategoryController.insertIntoDB
 );
-router.get('/', CategoryController.getAllFromDB);
-router.get('/:id', CategoryController.getByIdFromDB);
+router.get('/', CategoryController.getAllCategoryFromDB);
+router.get('/:id', CategoryController.getSingleCategoryFromDB);
 router.patch(
   '/:id',
   auth(ENUM_USER_ROLE.ADMIN),
-  CategoryController.updateIntoDB
+  CategoryController.updateCategoryIntoDB
 );
 router.delete(
   '/:id',
   auth(ENUM_USER_ROLE.ADMIN),
-  CategoryController.deleteFromDB
+  CategoryController.deleteCategoryFromDB
 );
 
-export const CategoryRoutes = router;
+export const CategoryRoute = router;

@@ -1,7 +1,7 @@
 import { Feedback } from '@prisma/client';
 import prisma from '../../../shared/prisma';
 
-const insartIntoDB = async (data: Feedback): Promise<Feedback> => {
+const insertIntoDB = async (data: Feedback): Promise<Feedback> => {
   console.log(data);
   const result = await prisma.feedback.create({
     data,
@@ -9,17 +9,14 @@ const insartIntoDB = async (data: Feedback): Promise<Feedback> => {
   return result;
 };
 
-const getAllFromDB = async (): Promise<Feedback[]> => {
-  console.log('first');
-
+const getAllFeedBackFromDB = async (): Promise<Feedback[]> => {
   const result = await prisma.feedback.findMany({});
-
-  // const result = await prisma.feedback.findMany();
-
   return result;
 };
 
-const getByIdFromDB = async (id: string): Promise<Feedback | null> => {
+const getSingleFeedBackFromDB = async (
+  id: string
+): Promise<Feedback | null> => {
   const result = await prisma.feedback.findUnique({
     where: {
       id,
@@ -28,7 +25,9 @@ const getByIdFromDB = async (id: string): Promise<Feedback | null> => {
   return result;
 };
 
-const deleteByIdFromDB = async (id: string): Promise<Feedback | null> => {
+const deleteFeedBackByIdFromDB = async (
+  id: string
+): Promise<Feedback | null> => {
   const result = await prisma.feedback.delete({
     where: {
       id,
@@ -37,7 +36,7 @@ const deleteByIdFromDB = async (id: string): Promise<Feedback | null> => {
   return result;
 };
 
-const updateOneInDB = async (
+const updateFeedBackOneInDB = async (
   id: string,
   data: Feedback
 ): Promise<Feedback | null> => {
@@ -51,9 +50,9 @@ const updateOneInDB = async (
 };
 
 export const FeedbackService = {
-  insartIntoDB,
-  getAllFromDB,
-  getByIdFromDB,
-  deleteByIdFromDB,
-  updateOneInDB,
+  insertIntoDB,
+  getAllFeedBackFromDB,
+  getSingleFeedBackFromDB,
+  deleteFeedBackByIdFromDB,
+  updateFeedBackOneInDB,
 };

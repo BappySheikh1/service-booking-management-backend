@@ -1,7 +1,7 @@
 import { Faqs } from '@prisma/client';
 import prisma from '../../../shared/prisma';
 
-const insartIntoDB = async (data: Faqs): Promise<Faqs> => {
+const faqInsertIntoDB = async (data: Faqs): Promise<Faqs> => {
   console.log(data);
   const result = await prisma.faqs.create({
     data,
@@ -9,12 +9,12 @@ const insartIntoDB = async (data: Faqs): Promise<Faqs> => {
   return result;
 };
 
-const getAllFromDB = async (): Promise<Faqs[]> => {
+const getAllFaqFromDB = async (): Promise<Faqs[]> => {
   const result = await prisma.faqs.findMany({});
   return result;
 };
 
-const getByIdFromDB = async (id: string): Promise<Faqs | null> => {
+const getSingleFaqByIdFromDB = async (id: string): Promise<Faqs | null> => {
   const result = await prisma.faqs.findUnique({
     where: {
       id,
@@ -23,7 +23,7 @@ const getByIdFromDB = async (id: string): Promise<Faqs | null> => {
   return result;
 };
 
-const deleteByIdFromDB = async (id: string): Promise<Faqs | null> => {
+const deleteFaqByIdFromDB = async (id: string): Promise<Faqs | null> => {
   const result = await prisma.faqs.delete({
     where: {
       id,
@@ -32,7 +32,10 @@ const deleteByIdFromDB = async (id: string): Promise<Faqs | null> => {
   return result;
 };
 
-const updateOneInDB = async (id: string, data: Faqs): Promise<Faqs | null> => {
+const updateFaqOneInDB = async (
+  id: string,
+  data: Faqs
+): Promise<Faqs | null> => {
   const result = await prisma.faqs.update({
     where: {
       id,
@@ -43,9 +46,9 @@ const updateOneInDB = async (id: string, data: Faqs): Promise<Faqs | null> => {
 };
 
 export const FaqsService = {
-  insartIntoDB,
-  getAllFromDB,
-  getByIdFromDB,
-  deleteByIdFromDB,
-  updateOneInDB,
+  faqInsertIntoDB,
+  getAllFaqFromDB,
+  getSingleFaqByIdFromDB,
+  deleteFaqByIdFromDB,
+  updateFaqOneInDB,
 };

@@ -4,9 +4,9 @@ import catchAsync from '../../../shared/catchAsync';
 import sendResponse from '../../../shared/sendResponse';
 import { BlogService } from './blog.service';
 
-const insartIntoDB: RequestHandler = catchAsync(
+const blogInsertIntoDB: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
-    const result = await BlogService.insartIntoDB(req.body);
+    const result = await BlogService.blogInsertIntoDB(req.body);
 
     sendResponse(res, {
       statusCode: httpStatus.OK,
@@ -16,53 +16,51 @@ const insartIntoDB: RequestHandler = catchAsync(
     });
   }
 );
-const getAllFromDB: RequestHandler = catchAsync(
+const getAllBlogFromDB: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
-    const result = await BlogService.getAllFromDB();
+    const result = await BlogService.getAllBlogFromDB();
 
     sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'Blog faced successfully',
+      message: 'Blogs retrieve successfully',
       data: result,
     });
   }
 );
-const getByIdFromDB: RequestHandler = catchAsync(
+const getSingleBlogFromDB: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
     const { id } = req.params;
 
-    const result = await BlogService.getByIdFromDB(id);
+    const result = await BlogService.getSingleBlogFromDB(id);
 
     sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'Blog faced successfully',
-      data: result,
-    });
-  }
-);
-
-const updateOneInDB: RequestHandler = catchAsync(
-  async (req: Request, res: Response) => {
-    const { id } = req.params;
-
-    const result = await BlogService.updateOneInDB(id, req.body);
-
-    sendResponse(res, {
-      statusCode: httpStatus.OK,
-      success: true,
-      message: 'Blog Upate successfully',
+      message: 'Blog retrieve successfully',
       data: result,
     });
   }
 );
 
-const deleteByIdFromDB: RequestHandler = catchAsync(
+const updateBlogOneInDB: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
     const { id } = req.params;
+    const result = await BlogService.updateBlogOneInDB(id, req.body);
 
-    const result = await BlogService.deleteByIdFromDB(id);
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Blog Updated successfully',
+      data: result,
+    });
+  }
+);
+
+const deleteBlogByIdFromDB: RequestHandler = catchAsync(
+  async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const result = await BlogService.deleteBlogByIdFromDB(id);
 
     sendResponse(res, {
       statusCode: httpStatus.OK,
@@ -74,9 +72,9 @@ const deleteByIdFromDB: RequestHandler = catchAsync(
 );
 
 export const BlogController = {
-  insartIntoDB,
-  getAllFromDB,
-  getByIdFromDB,
-  deleteByIdFromDB,
-  updateOneInDB,
+  blogInsertIntoDB,
+  getAllBlogFromDB,
+  getSingleBlogFromDB,
+  updateBlogOneInDB,
+  deleteBlogByIdFromDB,
 };

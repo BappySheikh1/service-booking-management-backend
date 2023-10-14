@@ -3,8 +3,8 @@ import express from 'express';
 import { AuthRouter } from '../modules/auth/auth.routes';
 import { BlogRoutes } from '../modules/blog/blog.toute';
 import { BookingsRouter } from '../modules/bookings/bookings.routes';
-import { CategoryRoutes } from '../modules/category/category.routes';
-import { FaqsRoutes } from '../modules/faqs/faqs.toute';
+import { CategoryRoute} from '../modules/category/category.routes';
+import { FaqsRoutes } from '../modules/faqs/faqs.route';
 import { FeedbackRoutes } from '../modules/feedback/feedback.toute';
 import { ReviewAndRatingRoutes } from '../modules/reviewAndRating/reviewAndRating.routes';
 import { ServicesRouter } from '../modules/services/services.routes';
@@ -31,11 +31,11 @@ const moduleRoutes = [
     routes: BookingsRouter,
   },
   {
-    path: '/categorie',
-    routes: CategoryRoutes,
+    path: '/categories',
+    routes: CategoryRoute,
   },
   {
-    path: '/review',
+    path: '/reviews',
     routes: ReviewAndRatingRoutes,
   },
   {
@@ -47,7 +47,7 @@ const moduleRoutes = [
     routes: FaqsRoutes,
   },
   {
-    path: '/feedback',
+    path: '/feedbacks',
     routes: FeedbackRoutes,
   },
 ];

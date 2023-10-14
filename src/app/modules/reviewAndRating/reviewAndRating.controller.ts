@@ -4,72 +4,55 @@ import catchAsync from '../../../shared/catchAsync';
 import sendResponse from '../../../shared/sendResponse';
 import { ReviewAndRatingService } from './reviewAndRating.service';
 
-const insertIntoDB: RequestHandler = catchAsync(
+const insertIntoFromDB: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
     const { userId } = req.user as { userId: string };
 
-    const result = await ReviewAndRatingService.insertIntoDB(req.body, userId);
+    const result = await ReviewAndRatingService.insertIntoFromDB(
+      req.body,
+      userId
+    );
 
     sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'ReviewAndRatingService created successfully',
+      message: 'Review And Rating created successfully',
       data: result,
     });
   }
 );
 
-const getAllFromDB: RequestHandler = catchAsync(
+const getAllReviewAndRatingFromDB: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
-    const result = await ReviewAndRatingService.getAllFromDB();
+    const result = await ReviewAndRatingService.getAllReviewAndRatingFromDB();
 
     sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'ReviewAndRatingService fetched successfully',
+      message: 'Reviews And Ratings retrieve successfully',
       data: result,
     });
   }
 );
 
-const getByIdFromDB: RequestHandler = catchAsync(
+const getSingleReviewAndRatingByIdFromDB: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
-    const result = await ReviewAndRatingService.getByIdFromDB(req.params.id);
+    const result =
+      await ReviewAndRatingService.getSingleReviewAndRatingByIdFromDB(
+        req.params.id
+      );
 
     sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'ReviewAndRatingService fetched successfully',
+      message: 'Review And Rating retrieve successfully',
       data: result,
     });
   }
 );
-
-// const updateIntoDB: RequestHandler = catchAsync(async (req: Request, res: Response) => {
-//      const result = await ReviewAndRatingService.updateIntoDB(req.params.id, req.body);
-
-//      sendResponse(res, {
-//           statusCode: httpStatus.OK,
-//           success: true,
-//           message: "ReviewAndRatingService update successfully",
-//           data: result
-//      });
-// }
-// );
-
-// const deleteFromDB: RequestHandler = catchAsync(async (req: Request, res: Response) => {
-//      const result = await ReviewAndRatingService.deleteFromDB(req.params.id);
-
-//      sendResponse(res, {
-//           statusCode: httpStatus.OK,
-//           success: true,
-//           message: "ReviewAndRatingService Deleted successfully",
-//           data: result
-//      });
-// });
 
 export const ReviewAndRatingController = {
-  insertIntoDB,
-  getAllFromDB,
-  getByIdFromDB,
+  insertIntoFromDB,
+  getAllReviewAndRatingFromDB,
+  getSingleReviewAndRatingByIdFromDB,
 };

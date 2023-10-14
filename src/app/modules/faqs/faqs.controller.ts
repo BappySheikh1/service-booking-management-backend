@@ -4,9 +4,9 @@ import catchAsync from '../../../shared/catchAsync';
 import sendResponse from '../../../shared/sendResponse';
 import { FaqsService } from './faqs.service';
 
-const insartIntoDB: RequestHandler = catchAsync(
+const faqInsertIntoDB: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
-    const result = await FaqsService.insartIntoDB(req.body);
+    const result = await FaqsService.faqInsertIntoDB(req.body);
 
     sendResponse(res, {
       statusCode: httpStatus.OK,
@@ -16,53 +16,55 @@ const insartIntoDB: RequestHandler = catchAsync(
     });
   }
 );
-const getAllFromDB: RequestHandler = catchAsync(
+
+const getAllFaqFromDB: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
-    const result = await FaqsService.getAllFromDB();
+    const result = await FaqsService.getAllFaqFromDB();
 
     sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'Faqs faced successfully',
-      data: result,
-    });
-  }
-);
-const getByIdFromDB: RequestHandler = catchAsync(
-  async (req: Request, res: Response) => {
-    const { id } = req.params;
-
-    const result = await FaqsService.getByIdFromDB(id);
-
-    sendResponse(res, {
-      statusCode: httpStatus.OK,
-      success: true,
-      message: 'Faqs faced successfully',
+      message: 'Faqs retrieve successfully',
       data: result,
     });
   }
 );
 
-const updateOneInDB: RequestHandler = catchAsync(
+const getSingleFaqByIdFromDB: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
     const { id } = req.params;
 
-    const result = await FaqsService.updateOneInDB(id, req.body);
+    const result = await FaqsService.getSingleFaqByIdFromDB(id);
 
     sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'Faqs Upate successfully',
+      message: 'Faqs retrieve successfully',
       data: result,
     });
   }
 );
 
-const deleteByIdFromDB: RequestHandler = catchAsync(
+const updateFaqOneInDB: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
     const { id } = req.params;
 
-    const result = await FaqsService.deleteByIdFromDB(id);
+    const result = await FaqsService.updateFaqOneInDB(id, req.body);
+
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Faq Updated successfully',
+      data: result,
+    });
+  }
+);
+
+const deleteFaqByIdFromDB: RequestHandler = catchAsync(
+  async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    const result = await FaqsService.deleteFaqByIdFromDB(id);
 
     sendResponse(res, {
       statusCode: httpStatus.OK,
@@ -74,9 +76,9 @@ const deleteByIdFromDB: RequestHandler = catchAsync(
 );
 
 export const FaqsController = {
-  insartIntoDB,
-  getAllFromDB,
-  getByIdFromDB,
-  deleteByIdFromDB,
-  updateOneInDB,
+  faqInsertIntoDB,
+  getAllFaqFromDB,
+  getSingleFaqByIdFromDB,
+  deleteFaqByIdFromDB,
+  updateFaqOneInDB,
 };

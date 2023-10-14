@@ -5,18 +5,22 @@ import { FeedbackController } from './feedback.controller';
 
 const router = express.Router();
 
-router.post('/create', FeedbackController.insartIntoDB);
-router.get('/', auth(ENUM_USER_ROLE.ADMIN), FeedbackController.getAllFromDB);
-router.get('/:id', FeedbackController.getByIdFromDB);
+router.post('/create', FeedbackController.insertIntoDB);
+router.get(
+  '/',
+  auth(ENUM_USER_ROLE.ADMIN),
+  FeedbackController.getAllFeedBackFromDB
+);
+router.get('/:id', FeedbackController.getSingleFeedBackFromDB);
 router.patch(
   '/:id',
   auth(ENUM_USER_ROLE.ADMIN),
-  FeedbackController.updateOneInDB
+  FeedbackController.updateFeedBackOneInDB
 );
 router.delete(
   '/:id',
   auth(ENUM_USER_ROLE.ADMIN),
-  FeedbackController.deleteByIdFromDB
+  FeedbackController.deleteFeedBackByIdFromDB
 );
 
 export const FeedbackRoutes = router;
