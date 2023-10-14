@@ -18,9 +18,9 @@ const createRegister: RequestHandler = catchAsync(
   }
 );
 
-const createAdmin: RequestHandler = catchAsync(
+const createSuperAdmin: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
-    const result = await AuthService.createAdmin(req.body);
+    const result = await AuthService.createSuperAdmin(req.body);
     console.log(req.body);
     sendResponse(res, {
       statusCode: httpStatus.OK,
@@ -31,9 +31,9 @@ const createAdmin: RequestHandler = catchAsync(
   }
 );
 
-const createNewUser: RequestHandler = catchAsync(
+const createNewAdmin: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
-    const result = await AuthService.createNewUser(req.body);
+    const result = await AuthService.createNewAdmin(req.body);
     console.log(req.body);
     sendResponse(res, {
       statusCode: httpStatus.OK,
@@ -64,6 +64,6 @@ const loginUser: RequestHandler = catchAsync(
 export const AuthController = {
   createRegister,
   loginUser,
-  createAdmin,
-  createNewUser,
+  createSuperAdmin,
+  createNewAdmin,
 };

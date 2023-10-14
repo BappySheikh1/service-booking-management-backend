@@ -1,14 +1,14 @@
 import express from 'express';
 
-import { AuthRouter } from '../modules/auth/auth.routes';
-import { BlogRoutes } from '../modules/blog/blog.toute';
-import { BookingsRouter } from '../modules/bookings/bookings.routes';
-import { CategoryRoute} from '../modules/category/category.routes';
+import { AuthRouter } from '../modules/auth/auth.route';
+import { BlogRoutes } from '../modules/blog/blog.route';
+import { BookingsRouter } from '../modules/bookings/bookings.route';
+import { CategoryRoute} from '../modules/category/category.route';
 import { FaqsRoutes } from '../modules/faqs/faqs.route';
-import { FeedbackRoutes } from '../modules/feedback/feedback.toute';
-import { ReviewAndRatingRoutes } from '../modules/reviewAndRating/reviewAndRating.routes';
-import { ServicesRouter } from '../modules/services/services.routes';
-import { UserRouter } from '../modules/user/user.routes';
+import { FeedbackRoutes } from '../modules/feedback/feedback.route';
+import { ReviewAndRatingRoutes } from '../modules/reviewAndRating/reviewAndRating.route';
+import { ServicesRouter } from '../modules/services/services.route';
+import { UserRouter } from '../modules/user/user.route';
 
 const router = express.Router();
 

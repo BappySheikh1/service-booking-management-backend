@@ -26,7 +26,7 @@ const createRegister = async (user: User): Promise<User> => {
   return result;
 };
 
-const createAdmin = async (user: User): Promise<User> => {
+const createSuperAdmin = async (user: User): Promise<User> => {
   if (!user.password) {
     user.password = config.default_pass as string;
   }
@@ -43,7 +43,7 @@ const createAdmin = async (user: User): Promise<User> => {
   return result;
 };
 
-const createNewUser = async (user: User): Promise<User> => {
+const createNewAdmin = async (user: User): Promise<User> => {
   if (!user.password) {
     user.password = config.default_pass as string;
   }
@@ -97,7 +97,7 @@ const loginUser = async (payload: { email: string; password: string }) => {
 
 export const AuthService = {
   createRegister,
-  createAdmin,
+  createSuperAdmin,
   loginUser,
-  createNewUser,
+  createNewAdmin,
 };

@@ -14,14 +14,14 @@ router.post(
   AuthController.createRegister
 );
 router.post(
-  '/super_admin/users',
+  '/super_admin',
   auth(ENUM_USER_ROLE.SUPER_ADMIN),
-  AuthController.createAdmin
+  AuthController.createSuperAdmin
 );
 router.post(
-  '/admin/users',
+  '/admin',
   auth(ENUM_USER_ROLE.ADMIN),
-  AuthController.createNewUser
+  AuthController.createNewAdmin
 );
 router.post('/login', AuthController.loginUser);
 
