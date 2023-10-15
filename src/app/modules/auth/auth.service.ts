@@ -62,7 +62,7 @@ const createNewAdmin = async (user: User): Promise<User> => {
 
 const loginUser = async (payload: { email: string; password: string }) => {
   const { email, password } = payload;
-
+  // console.log(payload)
   const isPasswordMatched = async (
     givenPassword: string,
     savedPassword: string

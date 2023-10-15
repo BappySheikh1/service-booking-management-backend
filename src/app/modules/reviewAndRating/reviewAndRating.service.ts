@@ -6,7 +6,8 @@ const insertIntoFromDB = async (
   userId: string
 ): Promise<Reviews> => {
   data.userId = userId;
-
+// console.log('user id',data.userId)
+// console.log('user id',userId)
   const existForBooking = await prisma.booking.findMany({
     where: {
       serviceId: data.serviceId,

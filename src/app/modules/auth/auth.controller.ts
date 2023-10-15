@@ -47,7 +47,7 @@ const createNewAdmin: RequestHandler = catchAsync(
 const loginUser: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
     const { ...loginData } = req.body;
-
+   console.log('User loggdin data',loginData)
     const result = await AuthService.loginUser(loginData);
 
     // set refresh token into cookie
